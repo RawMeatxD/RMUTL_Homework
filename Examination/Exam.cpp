@@ -3,193 +3,118 @@
 int showAnswer( int i, int A[], int B[], int Answer[], char op ) ;
 
 int main() {
-	int A[ 6 ], B[ 6 ], Answer[ 7 ]   ;	//declare array variable A[], B[], Answer[].
+	int A[ 6 ], B[ 6 ], Answer[ 7 ] ;	//declare array variable A[], B[], Answer[].
 	int num ; 							//declare integer variable num to recive input number.
 	int i = 0, j = 6 ;					//declare integer variable i, j to be counter.	
-	int hold, hold_else ;				//declare integer variable hold, hold_else to store sum and minus
-	int length = -1 ;					//declare integer variable to count array's length.
+	int hold ;							//declare integer variable hold to store sum and minus
+	int length = 5 ;					//declare integer variable to be counter array's length.
 	int decimal = 0 ;					//declare integer variable *decimal to roll up the numbers. *Translation problems (;w;)*
 	char op ;							//declare character variable to store operator - and +.
-	char EndProgram ;					//declare character variable to store char y and n.
 	
+	//input A[]
+	printf( "Enter Number A : \n" ) ;
 	do {
-		//input A[]
-		printf( "Enter Number A : \n" ) ;
 		do {
-			do {
-				printf( "A[%d] : ", i ) ;
-				scanf( "%d", &num ) ;
+			printf( "A[%d] : ", i ) ;
+			scanf( "%d", &num ) ;
 				
-				if( num <= 9 && num >= 0 ) {
-					A[ i ] = num ;
-					i++ ;
-					break ;	
-				} else {
-					printf( "Please enter ( 0 - 9 ) only!!.\n" ) ;
-				}//end if check input 0 - 9 and store
+			if( num <= 9 && num >= 0 ) {
+				A[ i ] = num ;
+				i++ ;
+				break ;	
+			} else {
+				printf( "Please enter ( 0 - 9 ) only!!.\n" ) ;
+			}//end if check input 0 - 9 and store
 				
-			} while ( true ) ;//end do-while check recived number 0 - 9
+		} while ( true ) ;//end do-while check recived number 0 - 9
 	
-			if( i > 5 ) {
-				break ;
-			}//end if break loop
-		} while ( true ) ;//end do-while input A[]
-		
-		//input B[]
-		i = 0 ;
-		printf( "Enter Number B : \n" ) ;
-		do {
-			do {
-				printf( "B[%d] : ", i ) ;
-				scanf( "%d", &num ) ;
-				
-				if( num <= 9 && num >= 0 ) {
-					B[ i ] = num ;
-					i++ ;
-					break ;
-				} else {
-					printf( "Please enter ( 0 - 9 ) only!!.\n" ) ;
-				}//end if check input 0 - 9 and store
-				
-			} while ( true ) ;//end do-while check recived number 0 - 9
-			
-			if( i > 5 ) {
-				break ;
-			}//end if break loop
-		} while ( true ) ;//end do-while input B[]
-		
-		do {
-			length++ ;
-		} while ( A[ length ] != '\0' ) ;//end while count *A[]'s length. *A[] and B[] both have the same length.
-		
-		i = 0 ;
-		length-- ;
-		
-		//choose operator - or + 
-		printf( "Operator : \n" ) ;
-		do {
-			scanf( " %c", &op ) ;
-			
-			if( op == '+' ) {//if choose +
-			
-				do {
-					hold = A[ length - 1 ] + B[ length - 1 ] ;		
-					if( hold >= 10 ) {
-						hold = hold - 10 ;
-						
-						if( decimal == 1 ) {
-							hold = hold + decimal ;
-							Answer[ j ] = hold ;
-						} else {
-							Answer[ j ] = hold ;
-						}//end if decimal
-						
-						decimal++ ;	
-						
-					} else if( hold < 10 ) {
-						hold_else = hold ;
-						
-						if( decimal == 1 ) {
-							hold_else = hold_else + decimal ;
-							decimal-- ;
-							
-							if( hold_else >= 10 ) {
-								hold_else = hold_else - 10 ;
-								Answer[ j ] = hold_else ;
-								decimal++ ;		
-							} else {
-								Answer[ j ] = hold_else ;
-							}//end if hold_else >= 10
-							
-						} else {
-							Answer[ j ] = hold_else ;
-						}//end if decimal	
-					}//end if hold
-					length-- ;
-					j-- ;
-					
-					if( decimal > 1 ) {
-						decimal-- ;
-					}//end if control decimal
-					
-					if( length < 0 ) {
-						break ;
-					}//end if break loop
-				} while ( true ) ;//end calculation loop ( + )
-				
-				showAnswer( i, A, B, Answer, op ) ;//function show answer
-				break ;
-				
-			} else if ( op == '-' ) {//if choose - 
-				do {
-					hold = A[ length - 1 ] - B[ length - 1 ] ;
-					if( hold < 0 ) {
-						hold = hold + 10 ;
-						
-						if( decimal == 1 ) {
-							hold = hold - decimal ;
-							Answer[ j ] = hold ;
-						} else {
-							Answer[ j ] = hold ;
-						}//end if decimal
-						decimal++ ;	
-					} else if( hold >= 0 ) {
-						hold_else = hold ;
-						if( decimal == 1 ) {
-							hold_else = hold_else - decimal ;
-							decimal-- ;
-							if( hold_else < 0 ) {
-								hold_else = hold_else + 10 ;
-								Answer[ j ] = hold_else ;
-								decimal++ ;		
-							} else {
-								Answer[ j ] = hold_else ;
-							}//end if hold_else < 0
-						} else {
-							Answer[ j ] = hold_else ;
-						}//end if decimal	
-					}//end if hold
-					length-- ;
-					j-- ;
-					
-					if( decimal > 1 ) {
-						decimal-- ;
-					}//end if control decimal
-					
-					if( length < 0 ) {
-						break ;
-					}//end if break loop
-				} while ( true ) ;//end calculation loop ( - )
-				showAnswer( i, A, B, Answer, op ) ;//function show answer
-				break ;
-			}//end if choose - or + 
-		} while ( true ) ;//end choose operator loop
-		
-		//choose y to run again, n to stop program.
-		printf( "\nWanna run again?? [y/n] : " ) ;
-		scanf( " %c", &EndProgram ) ;
-		
-		if( EndProgram == 'n' ) {
+		if( i > 5 ) {
 			break ;
-		} else if( EndProgram == 'y' ) {	
-			num = 0 ; 
-			i = 0 ;
-			j = 6 ;							
-			hold ;
-			hold_else ;
-			length = -1 ;
-			decimal = 0 ;
-		} else {
-			printf( "Please enter ( y and n ) only!!.\n" ) ;
-		}//end if choose y or n
+		}//end if break loop
+	} while ( true ) ;//end do-while input A[]
 		
-	} while ( true ) ;//end program loop
+	//input B[]
+	i = 0 ;
+	printf( "Enter Number B : \n" ) ;
+	do {
+		do {
+			printf( "B[%d] : ", i ) ;
+			scanf( "%d", &num ) ;
+				
+			if( num <= 9 && num >= 0 ) {
+				B[ i ] = num ;
+				i++ ;
+				break ;
+			} else {
+				printf( "Please enter ( 0 - 9 ) only!!.\n" ) ;
+			}//end if check input 0 - 9 and store
+				
+		} while ( true ) ;//end do-while check recived number 0 - 9
+			
+		if( i > 5 ) {
+			break ;
+		}//end if break loop
+	} while ( true ) ;//end do-while input B[]
+			
+	i = 0 ;
+		
+	//choose operator - or + 
+	printf( "Operator : \n" ) ;
+	do {
+		scanf( " %c", &op ) ;
+			
+		if( op == '+' ) {//if choose +
+			//calculation loop ( + )
+			do {
+				hold = A[ length ] + B[ length ] + decimal  ;	
+				Answer[ j ] = hold % 10 ;
+				decimal	= hold / 10 ;
+				Answer[ 0 ] = decimal ;
+				j-- ;
+				length-- ;
+				
+				if( length < 0 ) {
+					break ;
+				}//end if break loop
+			} while ( true ) ;//end calculation loop ( + )
+				
+			showAnswer( i, A, B, Answer, op ) ;//function show answer
+			break ;
+				
+		} else if ( op == '-' ) {//if choose - 
+			hold = 0 ;
+			//calculation loop ( - )
+			do {
+				hold = ( A[ length ] - B[ length ] ) - decimal ;
+				
+				if( hold < 0 ) {
+					Answer[ j ] = hold + 10 ;
+					decimal = 1 ;
+					Answer[ 0 ] = decimal ;
+				} else {
+					Answer[ j ] = hold ;
+					decimal = 0 ;
+					Answer[ 0 ] = decimal ;
+				}//end if 
+				
+				j-- ;
+				length-- ;
+				
+				if( length < 0 ) {
+					break ;
+				}//end if break loop
+			} while ( true ) ;//end calculation loop ( - )
+			
+			showAnswer( i, A, B, Answer, op ) ;//function show answer
+			break ;
+		}//end if choose - or + 
+	} while ( true ) ;//end choose operator loop
+	
 }//end function main
 
 //show Answer[]
 int showAnswer( int i, int A[], int B[], int Answer[], char op ) {
 	int index = 0 ;
-	int length = -1 ;
 	
 	//show index
 	printf( "\nIndex : \t\tx" ) ;
