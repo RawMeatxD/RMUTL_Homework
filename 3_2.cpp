@@ -26,7 +26,7 @@ int main() {
 }//end function
 
 void upgrade( struct student *child ) {
-	float plus, sum, num ;
+	float plus, sum ;
 	
 	if( child->sex == 'M' ) {
 		plus = ( child->gpa * 10 ) / 100 ; 
