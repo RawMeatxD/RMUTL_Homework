@@ -29,7 +29,7 @@ struct student upgrade( struct student child ) {
 	float plus, sum ;
 	
 	if( child.sex == 'M' ) {
-		plus = ( child.gpa *10 ) / 100 ; 
+		plus = ( child.gpa * 10 ) / 100 ; 
 		sum = child.gpa + plus ;
 		printf( "----|Show The Boys gpa increase by 10%\n" ) ;
 		printf( "After gpa increase by 10% : %.2f\n", sum ) ;
@@ -37,12 +37,12 @@ struct student upgrade( struct student child ) {
 		
 	} else if( child.sex == 'F' ) {
 		
-		plus = ( child.gpa *20 ) / 100 ; 
+		plus = ( child.gpa * 20 ) / 100 ; 
 		sum = child.gpa + plus ;
 		printf( "\n----|Show Girls gpa increase by 20%\n" ) ;
 		printf( "After gpa increase by 20% : %.2f\n", sum ) ;
 		printf( "Before gpa increase by 20% : " ) ;
 	}
 	
-	
+	return child ;
 }
