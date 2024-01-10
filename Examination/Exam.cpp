@@ -83,27 +83,56 @@ int main() {
 				
 		} else if ( op == '-' ) {//if choose - 
 			hold = 0 ;
-			//calculation loop ( - )
-			do {
-				hold = ( A[ length ] - B[ length ] ) - decimal ;
+			
+			if ( A[ 0 ] >= B[ 0 ] ) {
 				
-				if( hold < 0 ) {
-					Answer[ j ] = hold + 10 ;
-					decimal = 1 ;
-					Answer[ 0 ] = decimal ;
-				} else {
-					Answer[ j ] = hold ;
-					decimal = 0 ;
-					Answer[ 0 ] = decimal ;
-				}//end if 
+				//calculation loop ( - )
+				do {
+					hold = ( A[ length ] - B[ length ] ) - decimal ;
+					
+					if( hold < 0 ) {
+						Answer[ j ] = hold + 10 ;
+						decimal = 1 ;
+						Answer[ 0 ] = decimal ;
+					} else {
+						Answer[ j ] = hold ;
+						decimal = 0 ;
+						Answer[ 0 ] = decimal ;
+					}//end if 
+					
+					j-- ;
+					length-- ;
+					
+					if( length < 0 ) {
+						break ;
+					}//end if break loop
+				} while ( true ) ;//end calculation loop ( - )
 				
-				j-- ;
-				length-- ;
-				
-				if( length < 0 ) {
-					break ;
-				}//end if break loop
-			} while ( true ) ;//end calculation loop ( - )
+			} else if( A[ 0 ] < B[ 0 ] ) {
+			 
+			 	//calculation loop ( - )
+				do {
+					hold = ( B[ length ] - A[ length ] ) - decimal ;
+					
+					if( hold < 0 ) {
+						Answer[ j ] = hold + 10 ;
+						decimal = 1 ;
+						Answer[ 0 ] = decimal ;
+					} else {
+						Answer[ j ] = hold ;
+						decimal = 0 ;
+						Answer[ 0 ] = decimal ;
+					}//end if 
+					
+					j-- ;
+					length-- ;
+					
+					if( length < 0 ) {
+						break ;
+					}//end if break loop
+				} while ( true ) ;//end calculation loop ( - )
+			 
+			}
 			
 			showAnswer( i, A, B, Answer, op ) ;//function show answer
 			break ;
@@ -161,19 +190,41 @@ int showAnswer( int i, int A[], int B[], int Answer[], char op ) {
 	//show array Answer[]
 	printf( "\nAnswer : \t" ) ;
 	i = 0 ;
-	do {
 		if( op == '+' ) {
-			printf( "\t%d", Answer[ i ] ) ;
-			i++ ;
+			do {
+				printf( "\t%d", Answer[ i ] ) ;
+				i++ ;
+			
+				if( i > 6 ) {
+				break ;
+					}//end if break loop
+			} while ( true ) ;//end do-while show array Answer[]
 		} else if( op == '-' ) {
-			printf( "\t%d", Answer[ i ] ) ;
-			i++ ;
+			
+			if ( A[ 0 ] >= B[ 0 ] ) {
+				do {
+					printf( "\t%d", Answer[ i ] ) ;
+					i++ ;
+				
+					if( i > 6 ) {
+					break ;
+					}//end if break loop
+				} while ( true ) ;//end do-while show array Answer[]
+				
+			} else if ( A[ 0 ] < B[ 0 ] ) {
+				printf( "\t%c", op ) ;
+				do {
+					printf( "\t%d", Answer[ i + 1 ] ) ;
+					i++ ;
+				
+					if( i > 5 ) {
+					break ;
+					}//end if break loop
+				} while ( true ) ;//end do-while show array Answer[]
+			}
+				
 		}//end if
 				
-		if( i > 6 ) {
-			break ;
-		}//end if break loop
-	} while ( true ) ;//end do-while show array Answer[]	
 	printf( "\n\t\t==========================================================" ) ;
 }//end function Answer[]
 
