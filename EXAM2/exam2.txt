@@ -1,0 +1,104 @@
+Certainly! Let's break down the given C code step by step:
+
+1. **Structure Definition:**
+   ```c
+   struct studentNode {
+       char name[20];
+       int age;
+       char sex;
+       float gpa;
+       struct studentNode *next;
+       struct studentNode *back;
+   };
+   ```
+   This structure defines a node for a doubly linked list. Each node contains information about a student (name, age, sex, GPA) and two pointers: `next` points to the next node in the list, and `back` points to the previous node.
+
+2. **AddNode Function:**
+   ```c
+   struct studentNode *AddNode(struct studentNode **start, char *name, int age, char sex, float gpa) {
+       struct studentNode *node = new struct studentNode;
+       node->next = NULL;
+       node->back = NULL;
+
+       // ... (setting data fields)
+
+       if (*start == NULL) {
+           *start = node;
+       } else {
+           // Traverse to the end of the list
+           struct studentNode *temp = *start;
+           while (temp->next != NULL) {
+               temp = temp->next;
+           }
+
+           // Link the new node to the end
+           temp->next = node;
+           node->back = temp;
+       }
+
+       return node;
+   }
+   ```
+   This function adds a new node to the end of the doubly linked list. If the list is empty (`*start == NULL`), it directly assigns the new node as the start. Otherwise, it traverses to the end of the list, links the new node, and updates the `back` pointer accordingly.
+
+3. **Swap Function:**
+   ```c
+   void swap(struct studentNode **start, int A, int B) {
+       // ... (error checking)
+
+       // Find the nodes to be swapped
+       struct studentNode *previousA = NULL, *currentA = *start;
+       for (int i = 1; currentA != NULL && i < A; ++i) {
+           previousA = currentA;
+           currentA = currentA->next;
+       }
+
+       // ... (similar code for previousB and currentB)
+
+       // Swap the nodes and update pointers
+       struct studentNode *temp = currentA->next;
+       currentA->next = currentB->next;
+       currentB->next = temp;
+
+       // Update back pointers
+       if (currentA->next != NULL) {
+           currentA->next->back = currentA;
+       }
+       if (currentB->next != NULL) {
+           currentB->next->back = currentB;
+       }
+   }
+   ```
+   This function swaps nodes at positions `A` and `B`. It first finds the nodes and their previous nodes. Then, it adjusts the `next` pointers and updates the `back` pointers to maintain the doubly linked structure.
+
+4. **ShowAll Function:**
+   ```c
+   void ShowAll(struct studentNode *walk) {
+       while (walk != NULL) {
+           printf("%s ", walk->name);
+           walk = walk->next;
+       }
+       printf("\n");
+   }
+   ```
+   This function traverses the doubly linked list from the given node (`walk`) and prints the names of the students.
+
+5. **Main Function:**
+   ```c
+   int main() {
+       // ... (initialize and add nodes)
+
+       printf("Before swap:\n");
+       ShowAll(start);
+
+       swap(&start, 3, 2);
+
+       printf("After swap:\n");
+       ShowAll(start);
+
+       return 0;
+   }
+   ```
+   In the `main` function, a doubly linked list of student nodes is created, and the `swap` function is called to swap nodes at positions 3 and 2. The list's content is then printed before and after the swap.
+
+In summary, the code implements a doubly linked list of student nodes with functions to add nodes, swap nodes, and display the list. The `swap` function ensures the proper adjustment of both `next` and `back` pointers during the swapping process.
