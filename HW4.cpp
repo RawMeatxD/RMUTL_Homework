@@ -25,7 +25,7 @@ int main() {
 	printf( "Before swap : \n" ) ;
 	ShowAll( start ) ;
 	
-	swap( &start, 1, 4 ) ;
+	swap( &start, 1, 5 ) ;
 	
 	printf( "After swap : \n" ) ;
 	ShowAll( start ) ;
@@ -58,38 +58,38 @@ void swap( struct studentNode **start, int A, int B ) {
 		return ;
 	} 
 	
-	struct studentNode *prevA = NULL, *currA = *start ;
-	for( int i = 1 ; currA != NULL && i < A ; ++i ) {
-		prevA = currA ;
-		currA = currA->next ;
+	struct studentNode *previousA = NULL, *currentA = *start ;
+	for( int i = 1 ; currentA != NULL && i < A ; ++i ) {
+		previousA = currentA ;
+		currentA = currentA->next ;
 	}//end for
 	
-	struct studentNode *prevB = NULL, *currB = *start ;
-	for( int i = 1 ; currB != NULL && i < B ; ++i ) {
-		prevB = currB ;
-		currB = currB->next ;
+	struct studentNode *previousB = NULL, *currentB = *start ;
+	for( int i = 1 ; currentB != NULL && i < B ; ++i ) {
+		previousB = currentB ;
+		currentB = currentB->next ;
 	}//end for
 	
-	if( currA == NULL || currB == NULL ) {
+	if( currentA == NULL || currentB == NULL ) {
 		printf( "Error.\n" ) ;
 		return ;
 	} else {
 		
-		if( prevA != NULL ) {
-			prevA->next = currB ;
+		if( previousA != NULL ) {
+			previousA->next = currentB ;
 		} else {
-			*start = currB ;
+			*start = currentB ;
 		}//end if
 		
-		if( prevB != NULL ) {
-			prevB->next = currA ;
+		if( previousB != NULL ) {
+			previousB->next = currentA ;
 		} else {
-			*start = currA ;
+			*start = currentA ;
 		}//end if
 	
-	struct studentNode *temp = currA->next ;
-	currA->next = currB->next ;
-	currB->next = temp ;
+	struct studentNode *temp = currentA->next ;
+	currentA->next = currentB->next ;
+	currentB->next = temp ;
 		
 	}//end if
 	
@@ -102,3 +102,4 @@ void ShowAll( struct studentNode *walk ) {
 	}//end while
 	printf( "\n" ) ;
 }//end function
+//66543206061-4 kittisak poodtrong
