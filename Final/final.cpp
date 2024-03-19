@@ -30,7 +30,7 @@ int main() {
 	leastSold( "Asia", "Offline" ) ;
 	top10( "Central America and the Caribbean", "Online" ) ;
 	return 0 ;
-}//end program
+}//end main
 
 void read_file() {
 	FILE *f = fopen( "50 Sales Records.csv", "r" ) ;
@@ -91,24 +91,6 @@ void read_file() {
 			col++ ;
 			token = strtok( NULL, delim ) ;
 		} 
-		
-//		printf( "=============== show test =============\n" ) ;
-//		printf( "Region : %s", rec.region ) ;
-//		printf( "Country : %s", rec.country) ;
-//		printf( "Item Type : %s", rec.item ) ;
-//		printf( "Sales Channel : %s", rec.channel ) ;
-//		printf( "Order Priority : %s", rec.priority ) ;
-//		
-//		printf( "Order Date : %s", rec.Odate ) ;
-//		printf( "Order ID : %s", rec.id ) ;
-//		printf( "Ship Date : %s", rec.Shdate ) ;
-//		printf( "Units Sold : %d", rec.sold ) ;
-//		
-//		printf( "Unit Price : %.2f", rec.price ) ;
-//		printf( "Unit Cost : %.2f", rec.Ucost ) ;
-//		printf( "Total Revenue : %.2f", rec.revenue ) ;
-//		printf( "Total Cost : %.2f", rec.Tcost ) ;
-//		printf( "Total Profit : %.2f", rec.profit ) ;
 	}
 	fclose( f ) ;
 }
@@ -178,28 +160,32 @@ void mostSold ( char region[ 50 ], char online[ 10 ], char offline[ 10 ] ) {
 	
 	//check region, channel and find most sold 
 	int mostOnline = 0, mostOffline = 0 ;
-	char itemOn[ 30 ], itemOff[ 30 ] ;
+	char itemOn[ 30 ], itemOff[ 30 ], countryOn[ 30 ], countryOff[ 30 ] ;
 	for( int j = 0 ; j < i ; j++ ) {
 		if( strcmp( rec[ j ].region, "Europe" ) == 0 ) {
 			if( strcmp( rec[ j ].channel, "Online" ) == 0 ) {
 				if( rec[ j ].sold > mostOnline ) {
 					mostOnline = rec[ j ].sold ; 
 					strcpy( itemOn , rec[ j ].item ) ;
+					strcpy( countryOn , rec[ j ].country ) ;
 				}
 			}else if( strcmp( rec[ j ].channel, "Offline" ) == 0 ) {
 				if( rec[ j ].sold > mostOffline ) {
 					mostOffline = rec[ j ].sold ; 
 					strcpy( itemOff , rec[ j ].item ) ;
+					strcpy( countryOff , rec[ j ].country ) ;
 				}
 			}
 		}
 	}	
-	printf( "===== Most sold Online and Offline =====\n" ) ;
+	printf( "========= Most sold Online and Offline =========\n" ) ;
+	printf( "Most sold Online [ Country ] : %s\n", countryOn ) ;
 	printf( "Most sold Online [ Name ] : %s\n", itemOn ) ;
 	printf( "Most sold Online [ Units ] : %d\n", mostOnline ) ;
+	printf( "Most sold Offline [ Country ] : %s\n", countryOff ) ;
 	printf( "Most sold Offline [ Name ] : %s\n", itemOff ) ;
 	printf( "Most sold Offline [ Units ] : %d\n", mostOffline ) ;
-	printf( "========================================\n" ) ;
+	printf( "================================================\n" ) ;
 	fclose( f ) ;
 }
 
@@ -268,21 +254,23 @@ void leastSold ( char region[ 50 ], char offline[ 10 ] ) {
 	
 	//check region, channel and find least sold
 	int leastOffline ;
-	char itemOff[ 30 ] ;
+	char itemOff[ 30 ], countryOff[ 30 ] ;
 	for( int j = 0 ; j < i ; j++ ) {
 		if( strcmp( rec[ j ].region, "Asia" ) == 0 ) {
 			if( strcmp( rec[ j ].channel, "Offline" ) == 0 ) {
 				if( rec[ j ].sold < leastOffline ) {
 					leastOffline = rec[ j ].sold ; 
 					strcpy( itemOff , rec[ j ].item ) ;
+					strcpy( countryOff , rec[ j ].country ) ;
 				}
 			}
 		}
 	}	
-	printf( "\n===== Least sold in Asia Offline =====\n" ) ;
+	printf( "\n======= Least sold in Asia Offline =======\n" ) ;
+	printf( "Least sold Offline [ Country ] : %s\n", countryOff ) ;
 	printf( "Least sold Offline [ Name ] : %s\n", itemOff ) ;
 	printf( "Least sold Offline [ Units ] : %d\n", leastOffline ) ;
-	printf( "========================================\n" ) ;
+	printf( "==========================================\n" ) ;
 	fclose( f ) ;
 }
 
@@ -350,7 +338,7 @@ void top10 ( char region[ 50 ], char online[ 10 ] ) {
 		i++ ;
 	}
 	
-	//swap Units
+	//swap Units to Most to Least
 	for( int j = 1 ; j < i ; j++ ) {
 		for( int k = j + 1 ; k < i ; k++ ) {
 			if( rec[ j ].Ucost < rec[ k ].Ucost ) {
@@ -366,7 +354,8 @@ void top10 ( char region[ 50 ], char online[ 10 ] ) {
 	for( int l = 1 ; l < i ; l++ ) {
 		if( strcmp( rec[ l ].region, "Central America and the Caribbean" ) == 0 ) {
 			if( strcmp( rec[ l ].channel, "Online" ) == 0 ) {
-				printf( "================================== %d =====================================\n", count+ 1 ) ;
+				printf( "===========================================================================\n") ;
+				printf( "[%d]\n", count + 1 ) ;
 				printf( "Country [ Name ] : %s\n", rec[ l ].country ) ;
 				printf( "Unit [ Name ] : %s\n", rec[ l ].item ) ;
 				printf( "Unit [ Cost ] : %.2f\n", rec[ l ].Ucost ) ;
@@ -380,4 +369,3 @@ void top10 ( char region[ 50 ], char online[ 10 ] ) {
 	}
 	fclose( f ) ;
 }
-
